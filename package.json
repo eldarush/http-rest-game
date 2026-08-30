@@ -1,0 +1,16 @@
+﻿{
+  "name": "http-rest-game",
+  "version": "1.0.0",
+  "description": "Interactive web game for learning HTTP and REST concepts",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js"
+  },
+  "author": "Eldar Aslanbeily",
+  "license": "ISC",
+  "dependencies": {
+    "ejs": "^3.1.10",
+    "express": "^4.21.2"
+  }
+}
