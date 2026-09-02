@@ -2,6 +2,7 @@
 const path = require('path');
 const store = require('./data/store');
 const productsRouter = require('./routes/products');
+const schemasRouter = require('./routes/schemas');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -17,6 +18,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // Mount routes
 app.use('/api/products', productsRouter);
+app.use('/schemas', schemasRouter);
 
 // Health check endpoint
 app.get('/api/health', (req, res) => {

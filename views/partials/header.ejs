@@ -1,0 +1,9 @@
+﻿<header class="navbar">
+  <div class="nav-container">
+    <a href="/" class="nav-brand">REST Quest</a>
+    <nav class="nav-links">
+      <a href="/" class="nav-link <%= typeof activeNav !== 'undefined' && activeNav === 'game' ? 'active' : '' %>">Play Game</a>
+      <a href="/schemas" class="nav-link <%= typeof activeNav !== 'undefined' && activeNav === 'schemas' ? 'active' : '' %>">API Schemas</a>
+    </nav>
+  </div>
+</header>
