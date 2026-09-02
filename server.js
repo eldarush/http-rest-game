@@ -2,6 +2,7 @@
 const path = require('path');
 const store = require('./data/store');
 const productsRouter = require('./routes/products');
+const schemasRouter = require('./routes/schemas');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -14,6 +15,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/api/products', productsRouter);
+app.use('/schemas', schemasRouter);
 
 app.get('/api/health', (req, res) => {
   res.status(200).json({ status: 'ok', productsCount: store.products.length });
