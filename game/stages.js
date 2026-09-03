@@ -64,6 +64,70 @@
       }
       return { passed: true, message: 'Resource created with 201 Created!' };
     }
+  },
+  {
+    id: 6,
+    title: "Update Inventory Price",
+    description: "Product #1 is going on sale. Update its price to 119.99 using an HTTP PUT request with a route parameter and a JSON body.",
+    hint: "Send PUT /api/products/1 with body: {\"price\":119.99}",
+    validate: (req) => {
+      if (req.method !== 'PUT' && req.method !== 'PATCH') return { passed: false, message: 'Expected PUT or PATCH method' };
+      if (req.path !== '/api/products/1') return { passed: false, message: 'Expected route parameter: /api/products/1' };
+      if (!req.body || req.body.price === undefined || Number(req.body.price) !== 119.99) {
+        return { passed: false, message: 'Request body must set price to 119.99' };
+      }
+      return { passed: true, message: 'Success! Product #1 price updated in server memory.' };
+    }
+  },
+  {
+    id: 7,
+    title: "Remove Discontinued Item",
+    description: "Product #3 has been discontinued. Send an HTTP DELETE request to remove it from the catalog.",
+    hint: "Send DELETE /api/products/3",
+    validate: (req) => {
+      if (req.method !== 'DELETE') return { passed: false, message: 'Expected DELETE method' };
+      if (req.path !== '/api/products/3') return { passed: false, message: 'Expected route parameter: /api/products/3' };
+      return { passed: true, message: 'Deleted! Item removed from server memory.' };
+    }
+  },
+  {
+    id: 8,
+    title: "Related Reviews",
+    description: "Show all customer reviews written for product #1. Use the nested relationship route between products and reviews.",
+    hint: "Send GET /api/products/1/reviews",
+    validate: (req) => {
+      if (req.method !== 'GET') return { passed: false, message: 'Expected GET method' };
+      if (req.path !== '/api/products/1/reviews') return { passed: false, message: 'Expected nested route: /api/products/1/reviews' };
+      return { passed: true, message: 'Nice! You followed the product-to-reviews relationship.' };
+    }
+  },
+  {
+    id: 9,
+    title: "Handling Missing Resources",
+    description: "A customer requested product #999, which does not exist. Send the request and inspect the error the server returns.",
+    hint: "Send GET /api/products/999 and check for a 404 Not Found status code.",
+    validate: (req) => {
+      if (req.method !== 'GET') return { passed: false, message: 'Expected GET method' };
+      if (req.path !== '/api/products/999') return { passed: false, message: 'Expected path /api/products/999' };
+      return { passed: true, message: 'Correct! The server returned 404 Not Found for a missing resource.' };
+    }
+  },
+  {
+    id: 10,
+    title: "Post a New Review",
+    description: "Add a review for product #1 from author 'Alice' with a rating of 5. Combine a nested route parameter with a JSON request body.",
+    hint: "Send POST /api/products/1/reviews with body: {\"author\":\"Alice\",\"rating\":5,\"comment\":\"Top notch!\"}",
+    validate: (req) => {
+      if (req.method !== 'POST') return { passed: false, message: 'Expected POST method' };
+      if (req.path !== '/api/products/1/reviews') return { passed: false, message: 'Expected nested route: /api/products/1/reviews' };
+      if (!req.body || !req.body.author || req.body.rating === undefined) {
+        return { passed: false, message: 'Request body must contain author and rating' };
+      }
+      if (req.body.author.trim() !== 'Alice' || Number(req.body.rating) !== 5) {
+        return { passed: false, message: 'Verify body values: author Alice, rating 5' };
+      }
+      return { passed: true, message: 'Congratulations! You completed all 10 REST challenges!' };
+    }
   }
 ];
 
