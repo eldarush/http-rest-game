@@ -45,8 +45,20 @@ app.get('/api/game/stages', (req, res) => {
   res.status(200).json(publicStages);
 });
 
+// main page
+app.get('/', (req, res) => {
+  res.render('index', { activeNav: 'game' });
+});
+
 app.get('/api/health', (req, res) => {
   res.status(200).json({ status: 'ok', productsCount: store.products.length });
+});
+
+app.use((req, res) => {
+  if (req.path.startsWith('/api/')) {
+    return res.status(404).json({ error: 'Endpoint not found' });
+  }
+  res.status(404).send('Page Not Found');
 });
 
 if (require.main === module) {
