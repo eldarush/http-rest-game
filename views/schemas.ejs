@@ -14,12 +14,13 @@
       <p class="subtitle">System entities and contracts exposed under <code>/api</code>.</p>
 
       <% schemas.forEach(schema => { %>
-        <article class="schema-block" style="margin-top: 1.5rem;">
-          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
+        <article class="schema-block">
+          <div class="schema-header">
             <h3><%= schema.name %></h3>
             <span class="badge badge-endpoint"><%= schema.endpoint %></span>
           </div>
-          <p class="subtitle" style="margin-bottom: 0.5rem;"><%= schema.description %></p>
+          <p class="subtitle schema-desc"><%= schema.description %></p>
+          <div class="table-wrap">
           <table class="table">
             <thead>
               <tr>
@@ -40,6 +41,7 @@
               <% }) %>
             </tbody>
           </table>
+          </div>
         </article>
       <% }) %>
     </section>
