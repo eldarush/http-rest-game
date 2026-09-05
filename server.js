@@ -2,6 +2,7 @@
 const path = require('path');
 const store = require('./data/store');
 const productsRouter = require('./routes/products');
+const reviewsRouter = require('./routes/reviews');
 const schemasRouter = require('./routes/schemas');
 const stages = require('./game/stages');
 
@@ -31,7 +32,9 @@ app.use((req, res, next) => {
   next();
 });
 
+app.use('/api/products/:productId/reviews', reviewsRouter);
 app.use('/api/products', productsRouter);
+app.use('/api/reviews', reviewsRouter);
 app.use('/schemas', schemasRouter);
 
 // stage descriptions for frontend
