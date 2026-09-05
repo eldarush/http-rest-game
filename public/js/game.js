@@ -25,7 +25,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // Toggle JSON body editor based on HTTP method
   httpMethod.addEventListener('change', () => {
     const hasBody = ['POST', 'PUT', 'PATCH'].includes(httpMethod.value);
-    bodyContainer.style.display = hasBody ? 'block' : 'none';
+    bodyContainer.hidden = !hasBody;
   });
 
   // Fetch stage scenarios from server
@@ -62,13 +62,13 @@ document.addEventListener('DOMContentLoaded', () => {
     stageBadge.textContent = `Stage ${stage.id} of ${stages.length}`;
     stageTitle.textContent = stage.title;
     stageDesc.textContent = stage.description;
-    stageFeedback.style.display = 'none';
+    stageFeedback.hidden = true;
 
     // Reset default form inputs
     httpMethod.value = 'GET';
     requestPath.value = '/api/products';
     requestBody.value = '';
-    bodyContainer.style.display = 'none';
+    bodyContainer.hidden = true;
   }
 
   // Handle request submission
@@ -116,7 +116,7 @@ document.addEventListener('DOMContentLoaded', () => {
       }
 
       // Display Status Code Badge
-      statusBadge.style.display = 'inline-block';
+      statusBadge.hidden = false;
       statusBadge.textContent = `${res.status} ${res.statusText || ''}`;
       statusBadge.className = `badge ${res.status < 400 ? 'badge-2xx' : 'badge-4xx'}`;
 
@@ -124,11 +124,10 @@ document.addEventListener('DOMContentLoaded', () => {
       responseOutput.textContent = typeof responseData === 'object' ? JSON.stringify(responseData, null, 2) : responseData;
 
       // Handle Validation Feedback
-      stageFeedback.style.display = 'block';
+      stageFeedback.hidden = false;
       if (passed) {
-        stageFeedback.style.background = '#064e3b';
-        stageFeedback.style.color = '#6ee7b7';
-        stageFeedback.innerHTML = `✓ ${feedback || 'Passed!'} <button id="next-stage-btn" class="btn btn-primary" style="margin-left: 1rem; padding: 0.3rem 0.8rem;">Next Stage →</button>`;
+        stageFeedback.className = 'feedback feedback-success';
+        stageFeedback.innerHTML = `✓ ${feedback || 'Passed!'} <button id="next-stage-btn" class="btn btn-primary btn-next">Next Stage →</button>`;
         completedStages.add(currentStage.id);
 
         document.getElementById('next-stage-btn').addEventListener('click', () => {
@@ -139,12 +138,11 @@ document.addEventListener('DOMContentLoaded', () => {
           }
         });
       } else {
-        stageFeedback.style.background = '#7f1d1d';
-        stageFeedback.style.color = '#fca5a5';
+        stageFeedback.className = 'feedback feedback-error';
         stageFeedback.textContent = `✗ ${feedback || 'Request did not match stage requirements. Adjust method, path, or body and try again.'}`;
       }
     } catch (err) {
-      statusBadge.style.display = 'inline-block';
+      statusBadge.hidden = false;
       statusBadge.textContent = 'Network Error';
       statusBadge.className = 'badge badge-4xx';
       responseOutput.textContent = `Failed to fetch: ${err.message}`;

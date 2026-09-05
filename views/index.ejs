@@ -12,19 +12,19 @@
   <main class="container">
     <!-- Stage Header & Progress -->
     <section class="card">
-      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+      <div class="stage-header">
         <div>
           <span class="badge badge-endpoint" id="stage-badge">Stage 1</span>
-          <h2 id="stage-title" style="margin-top: 0.5rem;">Loading Challenge...</h2>
+          <h2 id="stage-title" class="stage-title">Loading Challenge...</h2>
         </div>
-        <div style="text-align: right;">
-          <label for="stage-select" style="font-size: 0.85rem; color: var(--muted);">Jump to:</label>
-          <select id="stage-select" class="select-method" style="margin-left: 0.5rem;"></select>
-          <div style="font-size: 0.85rem; color: var(--muted); margin-top: 0.3rem;">Attempts: <span id="attempts-count">0</span></div>
+        <div class="stage-meta">
+          <label for="stage-select" class="jump-label">Jump to:</label>
+          <select id="stage-select" class="select-method jump-select"></select>
+          <div class="attempts">Attempts: <span id="attempts-count">0</span></div>
         </div>
       </div>
       <p id="stage-description" class="subtitle"></p>
-      <div id="stage-feedback" style="display: none; padding: 0.75rem; border-radius: 6px; margin-top: 0.5rem; font-weight: 600;"></div>
+      <div id="stage-feedback" class="feedback" hidden></div>
     </section>
 
     <!-- Request Builder Form -->
@@ -44,8 +44,8 @@
           <button type="submit" id="send-btn" class="btn btn-primary">Send Request</button>
         </div>
 
-        <div id="body-container" style="display: none; margin-top: 1rem;">
-          <label style="font-size: 0.85rem; color: var(--muted); display: block; margin-bottom: 0.3rem;">Request Body (JSON):</label>
+        <div id="body-container" class="body-field" hidden>
+          <label class="field-label">Request Body (JSON):</label>
           <textarea id="request-body" class="textarea-body" placeholder='{ "name": "...", "price": 0 }'></textarea>
         </div>
       </form>
@@ -53,9 +53,9 @@
 
     <!-- Response Inspector -->
     <section class="card">
-      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem;">
+      <div class="response-header">
         <h3>Server Response</h3>
-        <span id="status-badge" class="badge" style="display: none;"></span>
+        <span id="status-badge" class="badge" hidden></span>
       </div>
       <div id="response-output" class="response-box">Press "Send Request" to execute the HTTP call.</div>
     </section>
